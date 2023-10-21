@@ -30,7 +30,7 @@ export default function Login() {
             <div className="size-4 mx-4 my-2">
               <Link
                 className={`login-lg mx-3 ${isLogin ? "active" : ""}`}
-                href="http://localhost:3000/member/login"
+                href="/member/login"
                 onClick={() => setIsLogin(true)}
               >
                 登入
@@ -39,7 +39,7 @@ export default function Login() {
             <div className="size-4 mx-4 my-2">
               <Link
                 className={`login-lg mx-3 ${!isLogin ? "active" : ""}`}
-                href="http://localhost:3000/member/login"
+                href="/member/login"
                 onClick={() => setIsLogin(false)}
               >
                 註冊
@@ -50,10 +50,7 @@ export default function Login() {
           {isLogin ? <LoginF /> : <RegisterForm />}
 
           <div className="u-form-group">
-            <Link
-              href="http://localhost:3000/member/forget-password"
-              className="forgot-password"
-            >
+            <Link href="/member/forget-password" className="forgot-password">
               忘記密碼
             </Link>
           </div>

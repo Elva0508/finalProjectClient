@@ -10,7 +10,6 @@ import Link from "next/link";
 // import moment from "moment"
 
 export default function Orderdetail() {
-
   const [showCommentForm, setShowCommentForm] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(null);
   const [comments, setComments] = useState({});
@@ -18,28 +17,28 @@ export default function Orderdetail() {
   const [detail, setDetail] = useState([{}]);
   const router = useRouter();
 
-  const handleSaveComment = async(user_id,productId,orderId) => {
-    const createtTime=moment().format("YYYY/MM/DD")
-        try {
-        const response = await axios.post(
-          `http://localhost:3005/api/member-order-detail/comment`,
-          { 
-            comment: comments,
-            star:value,
-            productid:productId,
-            orderid:orderId,
-            user_id:user_id,
-            createtTime:createtTime
-          }
-        );
-        const updatedComment = response.data.updatedComment;
-        setComments(updatedComment);
-      } catch (error) {
-        console.error("Error:", error);
-      }
+  const handleSaveComment = async (user_id, productId, orderId) => {
+    const createtTime = moment().format("YYYY/MM/DD");
+    try {
+      const response = await axios.post(
+        `http://localhost:3005/api/member-order-detail/comment`,
+        {
+          comment: comments,
+          star: value,
+          productid: productId,
+          orderid: orderId,
+          user_id: user_id,
+          createtTime: createtTime,
+        }
+      );
+      const updatedComment = response.data.updatedComment;
+      setComments(updatedComment);
+    } catch (error) {
+      console.error("Error:", error);
+    }
     setShowCommentForm(false);
-    getDetail(orderId,user_id)
-    setValue(0)
+    getDetail(orderId, user_id);
+    setValue(0);
   };
 
   const handleCancelComment = () => {
@@ -47,9 +46,8 @@ export default function Orderdetail() {
     setShowCommentForm(false);
   };
 
-
-  const getDetail = async (oid,id) => {
-    console.log(oid,id)
+  const getDetail = async (oid, id) => {
+    console.log(oid, id);
     try {
       const res = await fetch(
         `http://localhost:3005/api/member-order-detail/${oid}/${id}`
@@ -74,30 +72,27 @@ export default function Orderdetail() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const id=localStorage.getItem("id")
+    const id = localStorage.getItem("id");
     // 沒有token
     if (!token) {
-      router.push("/")
-
+      router.push("/");
     }
     console.log(id);
     console.log(token);
-
 
     if (router.isReady) {
       // 確保能得到router.query有值
       const { oid } = router.query;
       console.log(oid);
       // 有pid後，向伺服器要求資料，設定到狀態中
-      getDetail(oid,id);
+      getDetail(oid, id);
     }
     // eslint-disable-next-line
   }, [router.query]);
 
-
-const back =(id)=>{
-  router.push('http://localhost:3000/member/order')
-}
+  const back = (id) => {
+    router.push("/member/order");
+  };
 
   return (
     <>
@@ -107,21 +102,48 @@ const back =(id)=>{
           <ListD />
 
           <div className="d-flex flex-column col-md-8 col-12 order-detail">
-
-                <p className="size-4 big  mt-3 ms-md-5 ms-3 title">
-                 <span className="my">▍</span>我的訂單
-                </p>
-              <div className="px-md-5 px-3">
-              <p className="size-6  mt-2"><span>訂單編號：</span>{detail[0].oid}</p>
-              <p className="size-7"><span>訂單時間：</span>{detail[0].created_at}</p>
-              <p className="size-7"><span>訂單狀態：</span>{detail[0].status_name}</p>
-              <p className="size-7"><span>付款資訊：</span>{detail[0].payment}</p>
-              <p className="size-7"><span>寄送方式：</span>{detail[0].shipment}</p>
-              <p className="size-7"><span>收件資訊：</span></p>
-              <p className="size-7 back"><span>收件姓名：</span>{detail[0].buyer_name}</p>
-              <p className="size-7 back"><span>收件地址：</span>{detail[0].buyer_address}</p>
-              <p className="size-7 back"><span>聯絡電話：</span>{detail[0].buyer_phone}</p>
-              <p className="size-7"><span>購買項目：</span></p>
+            <p className="size-4 big  mt-3 ms-md-5 ms-3 title">
+              <span className="my">▍</span>我的訂單
+            </p>
+            <div className="px-md-5 px-3">
+              <p className="size-6  mt-2">
+                <span>訂單編號：</span>
+                {detail[0].oid}
+              </p>
+              <p className="size-7">
+                <span>訂單時間：</span>
+                {detail[0].created_at}
+              </p>
+              <p className="size-7">
+                <span>訂單狀態：</span>
+                {detail[0].status_name}
+              </p>
+              <p className="size-7">
+                <span>付款資訊：</span>
+                {detail[0].payment}
+              </p>
+              <p className="size-7">
+                <span>寄送方式：</span>
+                {detail[0].shipment}
+              </p>
+              <p className="size-7">
+                <span>收件資訊：</span>
+              </p>
+              <p className="size-7 back">
+                <span>收件姓名：</span>
+                {detail[0].buyer_name}
+              </p>
+              <p className="size-7 back">
+                <span>收件地址：</span>
+                {detail[0].buyer_address}
+              </p>
+              <p className="size-7 back">
+                <span>聯絡電話：</span>
+                {detail[0].buyer_phone}
+              </p>
+              <p className="size-7">
+                <span>購買項目：</span>
+              </p>
               {detail.map((v, i) => {
                 return (
                   <div key={v.product_id}>
@@ -130,18 +152,34 @@ const back =(id)=>{
                         <img src={v.image}></img>
                         <div>
                           <p className="ms-3 size-7">
-                          <span>商品名稱：<Link href={`/product/${v.category_id}/${v.subcategory_id}/${v.product_id}`} className="size-7">{v.product_name}</Link>
-                          </span></p>
-                          <p className="ms-3 size-7"><span>商品規格：</span>{v.type}</p>
-                          <p className="ms-3 size-7"><span>商品單價：</span>NT${v.price}</p>
+                            <span>
+                              商品名稱：
+                              <Link
+                                href={`/product/${v.category_id}/${v.subcategory_id}/${v.product_id}`}
+                                className="size-7"
+                              >
+                                {v.product_name}
+                              </Link>
+                            </span>
+                          </p>
+                          <p className="ms-3 size-7">
+                            <span>商品規格：</span>
+                            {v.type}
+                          </p>
+                          <p className="ms-3 size-7">
+                            <span>商品單價：</span>NT${v.price}
+                          </p>
                         </div>
                       </div>
                       <div className="col-2">
-                        <p className="ms-3 size-7"><span>數量：</span>{v.quantity}</p>
+                        <p className="ms-3 size-7">
+                          <span>數量：</span>
+                          {v.quantity}
+                        </p>
                       </div>
                       <div className="ms-auto size-7 me-3">
                         <p className="ms-3 size-7">
-                        <span>小計：</span>NT${v.quantity * v.price}
+                          <span>小計：</span>NT${v.quantity * v.price}
                         </p>
                       </div>
                     </div>
@@ -151,108 +189,140 @@ const back =(id)=>{
                         <img src={v.image}></img>
                         <div className="ms-3 d-flex flex-column justify-content-around">
                           <div>
-                            <p className="size-7"><span>商品名稱：<Link href={`/product/${v.category_id}/${v.subcategory_id}/${v.product_id}`} className="size-7">{v.product_name}</Link>
-                          </span></p>
+                            <p className="size-7">
+                              <span>
+                                商品名稱：
+                                <Link
+                                  href={`/product/${v.category_id}/${v.subcategory_id}/${v.product_id}`}
+                                  className="size-7"
+                                >
+                                  {v.product_name}
+                                </Link>
+                              </span>
+                            </p>
                           </div>
                           <div>
-                            <p className="size-7"><span>數量：</span>{v.quantity}</p>
+                            <p className="size-7">
+                              <span>數量：</span>
+                              {v.quantity}
+                            </p>
                           </div>
 
                           <div>
                             <p className="size-7">
-                            <span>小計：NT${v.quantity * v.price}</span>
+                              <span>小計：NT${v.quantity * v.price}</span>
                             </p>
                           </div>
                         </div>
                       </div>
                     </div>
-                    {v.review_content!==null ? (
-                      <div>                   
-
-                        {showCommentForm && currentProductId === v.product_id && v.status_id=== 3?(
+                    {v.review_content !== null ? (
+                      <div>
+                        {showCommentForm &&
+                        currentProductId === v.product_id &&
+                        v.status_id === 3 ? (
                           <div className="mt-3  d-flex justify-content-end">
                             <div>
-                              <Star startRating={v.star_rating} valid={v.star_rating} />
-                              <p><span>我的評論：</span>{v.review_content}</p>
-                            </div>  
+                              <Star
+                                startRating={v.star_rating}
+                                valid={v.star_rating}
+                              />
+                              <p>
+                                <span>我的評論：</span>
+                                {v.review_content}
+                              </p>
+                            </div>
                           </div>
-                        ):("")}
+                        ) : (
+                          ""
+                        )}
 
                         <div className="d-flex justify-content-end">
                           <button
-                                className="btn btn-confirm m-2 size-6 m-size-6"
-                                onClick={() => {
-                                  if(!showCommentForm){
-                                  setShowCommentForm(true)
-                                  setCurrentProductId(v.product_id);
-                                  }else if(showCommentForm && currentProductId !== v.product_id){
-                                    setCurrentProductId(v.product_id);
-                                  }else{
-                                    setShowCommentForm(false)
-                                  }
-                                }}
-                              >
-                                {showCommentForm && currentProductId === v.product_id && v.status_id=== 3 ?("關閉評論"):("查看評論")}
-                            </button>
-                        </div>
-
-                      </div>  
-                        
-                      ): showCommentForm && currentProductId === v.product_id && v.status_id=== 3 ?
-                      (
-                       <div>
-                            <h5 className="size-6 mt-3">商品評論：</h5>
-                            <Star startRating={value} onRatingChange={setValue} valid={v.star_rating}/>
-                            <textarea
-                              className="form-control col-12 textareasize "
-                              type="text"
-                              onChange={(e) =>{
-                                setComments(e.target.value) 
-                             
+                            className="btn btn-confirm m-2 size-6 m-size-6"
+                            onClick={() => {
+                              if (!showCommentForm) {
+                                setShowCommentForm(true);
+                                setCurrentProductId(v.product_id);
+                              } else if (
+                                showCommentForm &&
+                                currentProductId !== v.product_id
+                              ) {
+                                setCurrentProductId(v.product_id);
+                              } else {
+                                setShowCommentForm(false);
                               }
+                            }}
+                          >
+                            {showCommentForm &&
+                            currentProductId === v.product_id &&
+                            v.status_id === 3
+                              ? "關閉評論"
+                              : "查看評論"}
+                          </button>
+                        </div>
+                      </div>
+                    ) : showCommentForm &&
+                      currentProductId === v.product_id &&
+                      v.status_id === 3 ? (
+                      <div>
+                        <h5 className="size-6 mt-3">商品評論：</h5>
+                        <Star
+                          startRating={value}
+                          onRatingChange={setValue}
+                          valid={v.star_rating}
+                        />
+                        <textarea
+                          className="form-control col-12 textareasize "
+                          type="text"
+                          onChange={(e) => {
+                            setComments(e.target.value);
+                          }}
+                        ></textarea>
+                        <div className="d-flex  justify-content-end">
+                          <button
+                            className="btn btn-outline-confirm m-2 size-6 m-size-6"
+                            onClick={handleCancelComment}
+                          >
+                            取消
+                          </button>
+                          <button
+                            className="btn btn-confirm m-2 size-6 m-size-6"
+                            onClick={() =>
+                              handleSaveComment(v.user_id, v.product_id, v.oid)
                             }
-                            ></textarea>
-                            <div className="d-flex  justify-content-end">
-                              <button
-                                className="btn btn-outline-confirm m-2 size-6 m-size-6"
-                                onClick={handleCancelComment}
-                              >
-                                取消
-                              </button>
-                              <button
-                                className="btn btn-confirm m-2 size-6 m-size-6"
-                                onClick={() => handleSaveComment(v.user_id,v.product_id,v.oid)}
-                              >
-                                儲存
-                              </button>
-                            </div>
-                          </div>
-                        ):v.status_id=== 3?(
-                            <div className="d-flex justify-content-end">
-                                <button
-                                  className="btn btn-confirm m-2 size-6 m-size-6"
-                                  onClick={() => {
-                                    setShowCommentForm(true);
-                                    setCurrentProductId(v.product_id);
-                                  }}
-                                >
-                                  我要評論
-                                </button>
-                            </div>
-                        ):("")
+                          >
+                            儲存
+                          </button>
+                        </div>
+                      </div>
+                    ) : v.status_id === 3 ? (
+                      <div className="d-flex justify-content-end">
+                        <button
+                          className="btn btn-confirm m-2 size-6 m-size-6"
+                          onClick={() => {
+                            setShowCommentForm(true);
+                            setCurrentProductId(v.product_id);
+                          }}
+                        >
+                          我要評論
+                        </button>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                );
+              })}
 
-                      }
-                </div>
-
-              )})}
-
-              
               <div className="d-flex justify-content-end my-5 pe-3">
                 <table className="col-12 col-lg-4 col-md-6">
                   <thead>
                     <tr>
                       <td className="size-7">商品總金額：</td>
-                      <td className="size-7 text-end">NT${detail[0].order_price}</td>
+                      <td className="size-7 text-end">
+                        NT${detail[0].order_price}
+                      </td>
                     </tr>
                     {/* <tr>
                                   <td className="size-7">商品小計</td>
@@ -264,16 +334,20 @@ const back =(id)=>{
                     </tr>
                     <tr className="border-bottom">
                       <td className="size-7">運費：</td>
-                      <td className="size-7 text-end">NT${detail[0].freight}</td>
+                      <td className="size-7 text-end">
+                        NT${detail[0].freight}
+                      </td>
                     </tr>
                     <tr>
                       <th className="size-7">訂單金額：</th>
-                      <td className="size-7 text-end">NT${detail[0].total_amount}</td>
+                      <td className="size-7 text-end">
+                        NT${detail[0].total_amount}
+                      </td>
                     </tr>
                   </thead>
                 </table>
               </div>
-              </div>
+            </div>
           </div>
         </div>
       </div>

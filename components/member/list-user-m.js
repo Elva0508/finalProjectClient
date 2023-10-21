@@ -72,10 +72,7 @@ export default function ListUserM() {
                 <Membership />
               </div>
               <div>
-                <Link
-                  className="size-7 mt-3 ms-3"
-                  href="http://localhost:3000/member/coupon"
-                >
+                <Link className="size-7 mt-3 ms-3" href="/member/coupon">
                   查看我的優惠券
                 </Link>
               </div>

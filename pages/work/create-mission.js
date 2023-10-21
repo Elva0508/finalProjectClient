@@ -97,7 +97,7 @@ const CreateMission = () => {
       });
   };
   // const action = "http://localhost:3005/api/work/mission/image";
-  const action = "http://localhost:3000/work/create-mission";
+  const action = "/work/create-mission";
   const getPrompt = (isListType) => {
     let basicStyle = {
       display: "flex",

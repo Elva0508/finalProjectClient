@@ -82,27 +82,26 @@ const ResetUserPassword = () => {
 
   return (
     <div className="my-3">
-     <ListUserM />
+      <ListUserM />
       <div className="d-flex justify-content-around pt-2">
-        
         <ListD />
         <div className="reset-password  d-flex flex-column col-md-8 col-12 ">
           <div className="title my-1">
             <p className=" size-4">
-            <span className="my">▍</span>
+              <span className="my">▍</span>
               重新設定密碼
             </p>
           </div>
 
           <div className="reset-form d-flex justify-content-center ">
             <div className="reset-form-width">
-              <div className="reset-group"   style={{position: 'relative'}}>
+              <div className="reset-group" style={{ position: "relative" }}>
                 <label htmlFor="" className={userRfs}>
                   原密碼
                 </label>
                 <input
                   className="form-input  "
-                  type={viewPwd ? 'text':'password'}
+                  type={viewPwd ? "text" : "password"}
                   placeholder="請輸入密碼"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -121,27 +120,36 @@ const ResetUserPassword = () => {
                   alt="show/hide password"
                 />
               </div>
-              <div className="reset-group" style={{position: 'relative'}}>
+              <div className="reset-group" style={{ position: "relative" }}>
                 <label htmlFor="" className={userRfs}>
                   新密碼
                 </label>
                 <input
                   className="form-input "
-                  type={viewPwdConf ? 'text':'password'}
+                  type={viewPwdConf ? "text" : "password"}
                   placeholder="請輸入新密碼"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
-                      <Image
-            className="eye"
-          style={{ cursor: 'pointer',position: 'absolute',right: '15px',top: '5px'}}
-              title={viewPwdConf ? 'Hide passwordConf' : 'Show passwordConf'}
-              src={!viewPwdConf ? hidePwdImg : showPwdImg}
-              onClick={()=> SetViewPwdConf(prevStateConf => !prevStateConf)}
-              alt="show/hide password"
-            />
+                <Image
+                  className="eye"
+                  style={{
+                    cursor: "pointer",
+                    position: "absolute",
+                    right: "15px",
+                    top: "5px",
+                  }}
+                  title={
+                    viewPwdConf ? "Hide passwordConf" : "Show passwordConf"
+                  }
+                  src={!viewPwdConf ? hidePwdImg : showPwdImg}
+                  onClick={() =>
+                    SetViewPwdConf((prevStateConf) => !prevStateConf)
+                  }
+                  alt="show/hide password"
+                />
               </div>
-              <div className="reset-group"  >
+              <div className="reset-group">
                 <label htmlFor="" className={userRfs}>
                   確認新密碼
                 </label>
@@ -152,13 +160,10 @@ const ResetUserPassword = () => {
                   value={newPasswordCheck}
                   onChange={(e) => setNewPasswordCheck(e.target.value)}
                 />
-           
               </div>
               <div className="d-flex justify-content-center gap-5 mt-5">
-              <Link href="http://localhost:3000/member/profile">
-                <button className="btn-outline-confirm" >
-                  取消
-                </button>
+                <Link href="/member/profile">
+                  <button className="btn-outline-confirm">取消</button>
                 </Link>
                 <button className="btn-confirm" onClick={handleSubmit}>
                   儲存

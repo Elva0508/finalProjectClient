@@ -1,25 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
-import {NameContext} from "@/context/nameContext";
+import { NameContext } from "@/context/nameContext";
 import Link from "next/link";
 import ListD from "@/components/member/list-d";
 import ListUserM from "@/components/member/list-user-m";
 import useRWD from "@/hooks/useRWD";
 import TWZipCode from "@/components/user/TWZipCode";
- import ProtectedRoute from "@/components/protectedRoute";
+import ProtectedRoute from "@/components/protectedRoute";
 // import { useAuth } from "@/context/fakeAuthContext";
-
 
 import jwt_decode from "jwt-decode";
 
 const ProfilePage = () => {
   //context
-  const {contextName, setContextName} = useContext(NameContext);
+  const { contextName, setContextName } = useContext(NameContext);
 
   //RWD
   const device = useRWD();
   const userRfs = device == "mobile" ? "m-size-6" : "size-6";
 
- 
   //取得資料
 
   //const [userData, setUserData] = useState({});
@@ -37,9 +35,9 @@ const ProfilePage = () => {
   const [petCount, setPetCount] = useState(1);
 
   const [address, setAddress] = useState({
-     country: '',
-     township: '',
-    postcode: '',
+    country: "",
+    township: "",
+    postcode: "",
   });
 
   //設置id狀態
@@ -68,7 +66,7 @@ const ProfilePage = () => {
         //console.log(data.results[0]);
         //把結果放進user
         const user = data.results[0];
-        setContextName(user.name)
+        setContextName(user.name);
         setEmail(user.email);
         setName(user.name);
         setGender(user.gender);
@@ -86,7 +84,7 @@ const ProfilePage = () => {
           country: user.city,
           township: user.area,
           postcode: user.postcode,
-        })
+        });
         //console.log(address)
       })
       .catch((error) => console.error("api請求錯誤", error));
@@ -124,7 +122,7 @@ const ProfilePage = () => {
       phone,
       // city: addressCity,
       // area: addressTown,
-    
+
       city: address.country,
       area: address.township,
       postcode: address.postcode,
@@ -140,14 +138,14 @@ const ProfilePage = () => {
       },
       body: JSON.stringify(updatedUserData),
     })
-      .then((res) => res.json()) .then((data) => {
-       
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
-        
-       //setName(data.results[0].name)
+
+        //setName(data.results[0].name)
         //setContextName( data.results[0].name)
         // setContextName(name)
-       alert("會員資料修改完成");
+        alert("會員資料修改完成");
       })
       .catch((err) => {
         console.error(err);
@@ -156,158 +154,155 @@ const ProfilePage = () => {
 
   return (
     <ProtectedRoute>
-    <div className=" my-3">
-       <ListUserM />
-      <div className="d-flex justify-content-around pt-2">
-        <ListD />
-        <div className="user-profile d-flex flex-column col-md-8 col-12  ">
-   
-          <div className="title my-1">
-            <p className=" size-4">
-            <span className="my">▍</span> 個人資料
-            </p>
-          </div>
+      <div className=" my-3">
+        <ListUserM />
+        <div className="d-flex justify-content-around pt-2">
+          <ListD />
+          <div className="user-profile d-flex flex-column col-md-8 col-12  ">
+            <div className="title my-1">
+              <p className=" size-4">
+                <span className="my">▍</span> 個人資料
+              </p>
+            </div>
 
-          <div className="user-form ">
-          
-            <div className="user-form-item">
+            <div className="user-form ">
+              <div className="user-form-item">
+                <div className="ws20 mb-5 d-flex justify-content-center">
+                  <label className={`fs3 ${userRfs}`}>Email</label>
+                  <input
+                    className="form-input fs11"
+                    type="text"
+                    value={email}
+                    disabled="true"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+
               <div className="ws20 mb-5 d-flex justify-content-center">
-                <label className={`fs3 ${userRfs}`}>Email</label>
+                <label className={`fs3 ${userRfs}`}>姓名</label>
                 <input
                   className="form-input fs11"
                   type="text"
-                  value={email}
-                  disabled="true"
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
-            </div>
 
-            <div className="ws20 mb-5 d-flex justify-content-center">
-              <label className={`fs3 ${userRfs}`}>姓名</label>
-              <input
-                className="form-input fs11"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-
-            <div className="ws20  mb-5 d-flex justify-content-center">
-              <label className={`fs3 ${userRfs}`}>密碼</label>
-              <div className="fs11 ">
-                <Link href="http://localhost:3000/member/reset-password">
-                  <button className="btn-confirm fs-btn">設定新密碼</button>
-                </Link>
-              </div>
-            </div>
-
-            <div className="ws20 gender mb-5 d-flex justify-content-center gender-radio">
-              <label className={`fs3 ${userRfs}`}>性別</label>
-              <div className="fs11 d-flex align-items-center">
-                <div className="radio-box">
-                  <label >
-                    <input
-                      type="radio"
-                      name="label"
-                      id="male"
-                      className={userRfs}
-                      value="gender"
-                      checked={gender === "男"}
-                      onChange={() => setGender("男")}
-                      aria-label="..."
-                    />
-                    <span className="gender-btn round" >男</span>
-                  </label>
-                </div>
-                <div className="radio-box">
-                <label >
-                  <input
-                    type="radio"
-                    name="label"
-                    id="female"
-                    className={userRfs}
-                    value="gender"
-                    checked={gender === "女"}
-                    onChange={() => setGender("女")}
-                    aria-label="..."
-                  />
-                  <span  className="gender-btn round">女</span>
-                  </label>
+              <div className="ws20  mb-5 d-flex justify-content-center">
+                <label className={`fs3 ${userRfs}`}>密碼</label>
+                <div className="fs11 ">
+                  <Link href="/member/reset-password">
+                    <button className="btn-confirm fs-btn">設定新密碼</button>
+                  </Link>
                 </div>
               </div>
-            </div>
 
-            <div className="ws20  mb-5 d-flex justify-content-center">
-              <label className={`fs3 ${userRfs}`}>生日</label>
-              <input
-                className="form-input fs11"
-                type="date"
-                value={birthday}
-                onChange={(e) => setBirthday(e.target.value)}
-              />
-            </div>
+              <div className="ws20 gender mb-5 d-flex justify-content-center gender-radio">
+                <label className={`fs3 ${userRfs}`}>性別</label>
+                <div className="fs11 d-flex align-items-center">
+                  <div className="radio-box">
+                    <label>
+                      <input
+                        type="radio"
+                        name="label"
+                        id="male"
+                        className={userRfs}
+                        value="gender"
+                        checked={gender === "男"}
+                        onChange={() => setGender("男")}
+                        aria-label="..."
+                      />
+                      <span className="gender-btn round">男</span>
+                    </label>
+                  </div>
+                  <div className="radio-box">
+                    <label>
+                      <input
+                        type="radio"
+                        name="label"
+                        id="female"
+                        className={userRfs}
+                        value="gender"
+                        checked={gender === "女"}
+                        onChange={() => setGender("女")}
+                        aria-label="..."
+                      />
+                      <span className="gender-btn round">女</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
 
-            <div className="ws20  mb-5 d-flex justify-content-center">
-              <label className={`fs3 ${userRfs}`}>手機</label>
-              <input
-                className="form-input fs11"
-                type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-
-          
-            <div className="ws20   d-flex justify-content-center">
-              <label className={`fs3 py-2 ${userRfs}`}>地址</label>
-              <TWZipCode
-              initPostcode={address.postcode}
-              onPostcodeChange={(country, township, postcode) => {
-                setAddress({
-                  country,
-                  township,
-                  postcode,
-                });
-              }}
-            />
-            </div>
-            <div className="d-flex justify-content-center">
-              <div className="address-w20 ">
-                {/* <label className={` ${userRfs}`}></label> */}
+              <div className="ws20  mb-5 d-flex justify-content-center">
+                <label className={`fs3 ${userRfs}`}>生日</label>
                 <input
+                  className="form-input fs11"
+                  type="date"
+                  value={birthday}
+                  onChange={(e) => setBirthday(e.target.value)}
+                />
+              </div>
+
+              <div className="ws20  mb-5 d-flex justify-content-center">
+                <label className={`fs3 ${userRfs}`}>手機</label>
+                <input
+                  className="form-input fs11"
                   type="text"
-                  className="form-control address-11"
-                  value={detailAddress}
-                  onChange={(e) => setDetailAddress(e.target.value)}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-            </div>
 
-            <div className="ws20   d-flex justify-content-center">
-              <label className={`fs3 ${userRfs}`}>毛孩數量</label>
-              <div className="fs11 ">
-                <input
-                  className="form-input fs5"
-                  type="number"
-                  value={petCount}
-                  onChange={(e) => setPetCount(e.target.value)}
+              <div className="ws20   d-flex justify-content-center">
+                <label className={`fs3 py-2 ${userRfs}`}>地址</label>
+                <TWZipCode
+                  initPostcode={address.postcode}
+                  onPostcodeChange={(country, township, postcode) => {
+                    setAddress({
+                      country,
+                      township,
+                      postcode,
+                    });
+                  }}
                 />
               </div>
-            </div>
+              <div className="d-flex justify-content-center">
+                <div className="address-w20 ">
+                  {/* <label className={` ${userRfs}`}></label> */}
+                  <input
+                    type="text"
+                    className="form-control address-11"
+                    value={detailAddress}
+                    onChange={(e) => setDetailAddress(e.target.value)}
+                  />
+                </div>
+              </div>
 
-            <div className="user-btn-group d-flex justify-content-center gap-5">
-              <button id="save" className="btn-confirm" onClick={handleSave}>
-                儲存
-              </button>
-              {/* <button className="btn-outline-confirm" onClick={handleCancel}>
+              <div className="ws20   d-flex justify-content-center">
+                <label className={`fs3 ${userRfs}`}>毛孩數量</label>
+                <div className="fs11 ">
+                  <input
+                    className="form-input fs5"
+                    type="number"
+                    value={petCount}
+                    onChange={(e) => setPetCount(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="user-btn-group d-flex justify-content-center gap-5">
+                <button id="save" className="btn-confirm" onClick={handleSave}>
+                  儲存
+                </button>
+                {/* <button className="btn-outline-confirm" onClick={handleCancel}>
                 取消
               </button> */}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </ProtectedRoute>
   );
 };
