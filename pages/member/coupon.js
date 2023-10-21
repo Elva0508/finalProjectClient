@@ -15,7 +15,7 @@ const UserCouponPage = () => {
   const searchInput = useRef(null);
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const apiUrl = "http://localhost:3005/api/user/user-coupon";
+  const apiUrl = `${REACT_APP_SERVER_URL}/api/user/user-coupon`;
 
   useEffect(() => {
     axios
@@ -94,16 +94,17 @@ const UserCouponPage = () => {
             </div>
 
             <div className="border-bottom coupon-filter mb-3 ">
-    
-                <button
-                  className={`px-2 coupon-listBtn ${activeFilter === "all" ? "active " : ""}`}
-                  value="all"
-                  onClick={() => handleFilter("all")}
-                >
-                  全部
-                  {/* ({coupons.length}) */}
-                </button>
-         
+              <button
+                className={`px-2 coupon-listBtn ${
+                  activeFilter === "all" ? "active " : ""
+                }`}
+                value="all"
+                onClick={() => handleFilter("all")}
+              >
+                全部
+                {/* ({coupons.length}) */}
+              </button>
+
               {/* <a className='px-2' value='valid' onClick={handleFilter}>有效期內</a> */}
               <button
                 className={`px-2 coupon-listBtn ${
@@ -131,9 +132,7 @@ const UserCouponPage = () => {
                     </div>
                     <div className="shadow scale" />
                     <div className="message-coupon">
-                      <h1 className="priceCode coupon-h1">
-                        {v.title}
-                      </h1>
+                      <h1 className="priceCode coupon-h1">{v.title}</h1>
                       <p>
                         <p className="couponCode py-1">- {v.coupon_code} -</p>
                         低消 ${v.usage_min}

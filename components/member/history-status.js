@@ -68,7 +68,7 @@ export default function HistoryStatusOne({
     console.log(id);
     try {
       const response = await axios.put(
-        `http://localhost:3005/api/member-history/updatetype`,
+        `${REACT_APP_SERVER_URL}/api/member-history/updatetype`,
         { id }
       );
     } catch (error) {
@@ -78,7 +78,6 @@ export default function HistoryStatusOne({
   };
 
   console.log(idCounts);
-
 
   const [missionActive, setMissionActive] = useState("move");
   const missionVariant = {
@@ -157,27 +156,32 @@ export default function HistoryStatusOne({
                         {v.location_detail}
                       </p>
                       <p className="size-7">
-                      <span>任務時間：</span>
+                        <span>任務時間：</span>
                         {transferDate(v.start_date)}~{transferDate(v.end_date)}
                       </p>
                       <p className="size-7 content">
                         <span>任務內容：</span>
                         {showcontent && id === v.mission_id ? (
-                          <motion.div className=""  initial={"initial"}
-                          animate={
-                            missionActive === "move"
-                              ? "move"
-                              : missionActive === "exit"
+                          <motion.div
+                            className=""
+                            initial={"initial"}
+                            animate={
+                              missionActive === "move"
+                                ? "move"
+                                : missionActive === "exit"
                                 ? "exit"
                                 : "initial"
-                          }
-                          variants={missionVariant}
-                          // (index + 1) % 3 == 1 ? 0 : (index + 1) % 3 == 2 ? 1 : 2 整排移動參數
-                          custom={i}
-                          whileInView="singleMove"
-                          viewport={{
-                            once: true,
-                          }}><CustomHTMLRenderer htmlContent={v.description} /></motion.div>
+                            }
+                            variants={missionVariant}
+                            // (index + 1) % 3 == 1 ? 0 : (index + 1) % 3 == 2 ? 1 : 2 整排移動參數
+                            custom={i}
+                            whileInView="singleMove"
+                            viewport={{
+                              once: true,
+                            }}
+                          >
+                            <CustomHTMLRenderer htmlContent={v.description} />
+                          </motion.div>
                         ) : (
                           ""
                         )}

@@ -20,7 +20,7 @@ export default function Purchast() {
 
   const getProduct = (id) => {
     axios
-      .get(`http://localhost:3005/api/member-purchast/${id}`)
+      .get(`${REACT_APP_SERVER_URL}/api/member-purchast/${id}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);
@@ -39,7 +39,7 @@ export default function Purchast() {
     if (have === undefined) {
       try {
         const response = await axios.put(
-          `http://localhost:3005/api/member-purchast/cart/${user_id}`,
+          `${REACT_APP_SERVER_URL}/api/member-purchast/cart/${user_id}`,
           { id, type }
         );
       } catch (error) {
@@ -52,7 +52,7 @@ export default function Purchast() {
         console.log(newQuantity);
         console.log(id);
         const response = await axios.put(
-          `http://localhost:3005/api/member-purchast/cartplus/${user_id}`,
+          `${REACT_APP_SERVER_URL}/api/member-purchast/cartplus/${user_id}`,
           { id, newQuantity, type }
         );
       } catch (error) {
@@ -64,7 +64,7 @@ export default function Purchast() {
 
   const getWishlist = async (id) => {
     await axios
-      .get(`http://localhost:3005/api/member-purchast/wishlist/${id}`)
+      .get(`${REACT_APP_SERVER_URL}/api/member-purchast/wishlist/${id}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);
@@ -81,7 +81,7 @@ export default function Purchast() {
     if (have === undefined) {
       try {
         const response = await axios.put(
-          `http://localhost:3005/api/member-purchast/addwishlist/${user_id}`,
+          `${REACT_APP_SERVER_URL}/api/member-purchast/addwishlist/${user_id}`,
           { id }
         );
       } catch (error) {
@@ -95,7 +95,7 @@ export default function Purchast() {
     console.log(id);
     try {
       const response = await axios.delete(
-        `http://localhost:3005/api/member-purchast/deletewishlist/${user_id}`,
+        `${REACT_APP_SERVER_URL}/api/member-purchast/deletewishlist/${user_id}`,
         { data: { id } }
       );
     } catch (error) {
@@ -106,7 +106,7 @@ export default function Purchast() {
 
   const getCart = (id) => {
     axios
-      .get(`http://localhost:3005/api/product/cart/cart/${id}`)
+      .get(`${REACT_APP_SERVER_URL}/api/product/cart/cart/${id}`)
       .then((response) => {
         const data = response.data.result;
         const newData = data.map((v) => {
@@ -174,7 +174,12 @@ export default function Purchast() {
                             <img className="picture me-4" src={v.image}></img>
 
                             <div className="">
-                              <Link href={`/product/${v.category_id}/${v.subcategory_id}/${v.product_id}`} className="size-6">{v.product_name}</Link>
+                              <Link
+                                href={`/product/${v.category_id}/${v.subcategory_id}/${v.product_id}`}
+                                className="size-6"
+                              >
+                                {v.product_name}
+                              </Link>
                               <p className="size-6 type">{v.type}</p>
                               <p className="size-6 price">NT${v.price}</p>
                             </div>

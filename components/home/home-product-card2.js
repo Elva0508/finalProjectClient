@@ -31,7 +31,7 @@ export default function HomeProductCard2() {
   const [productData, setProductData] = useState({ result: [] }); // 初始化為一個帶有 result 屬性的物件
 
   useEffect(() => {
-    axios.get("http://localhost:3005/api/product/home").then((response) => {
+    axios.get(`${REACT_APP_SERVER_URL}/api/product/home`).then((response) => {
       setProductData({ result: response.data.result }); // 將伺服器端的 result 放入物件中
     });
   }, []);
@@ -171,7 +171,7 @@ export default function HomeProductCard2() {
                   <div className="d-flex justify-content-between align-items-center">
                     {/* 類別按鈕顏色已建好 btn-color-1 一直到btn-color-7 再依需求調整className即可 */}
                     {/* 顏色設定如果需要再調整，可以到以下檔案調整 \final-project-pet\client\styles\components-style\_product-card.scss */}
-                     <div
+                    <div
                       className={`btn ${getButtonColorClass(
                         v.category_name
                       )} d-flex align-items-center `}

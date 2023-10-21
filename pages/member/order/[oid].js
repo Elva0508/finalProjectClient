@@ -21,7 +21,7 @@ export default function Orderdetail() {
     const createtTime = moment().format("YYYY/MM/DD");
     try {
       const response = await axios.post(
-        `http://localhost:3005/api/member-order-detail/comment`,
+        `${REACT_APP_SERVER_URL}/api/member-order-detail/comment`,
         {
           comment: comments,
           star: value,
@@ -50,7 +50,7 @@ export default function Orderdetail() {
     console.log(oid, id);
     try {
       const res = await fetch(
-        `http://localhost:3005/api/member-order-detail/${oid}/${id}`
+        `${REACT_APP_SERVER_URL}/api/member-order-detail/${oid}/${id}`
       );
 
       const data = await res.json();

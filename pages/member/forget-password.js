@@ -6,7 +6,7 @@ import showPwdImg from "@/assets/showPwd.svg";
 import hidePwdImg from "@/assets/hidePwd.svg";
 
 export default function ForgetPassword() {
-  const [viewPwd,SetViewPwd]=useState(false)
+  const [viewPwd, SetViewPwd] = useState(false);
 
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
@@ -34,7 +34,7 @@ export default function ForgetPassword() {
 
     try {
       const res = await axios.post(
-        "http://localhost:3005/api/reset-password/otp",
+        `${REACT_APP_SERVER_URL}/api/reset-password/otp`,
         {
           email,
         }
@@ -59,7 +59,7 @@ export default function ForgetPassword() {
   const resetPassword = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3005/api/reset-password/reset",
+        `${REACT_APP_SERVER_URL}/api/reset-password/reset`,
         {
           email,
           token,
@@ -90,7 +90,12 @@ export default function ForgetPassword() {
           </div>
           <hr className="hr-divider" />
           <div className="forgotPassword-form ">
-            <h5 style={{ color: "#ff6600" }} className="my-4 forgetPassword-msg">{message}</h5>
+            <h5
+              style={{ color: "#ff6600" }}
+              className="my-4 forgetPassword-msg"
+            >
+              {message}
+            </h5>
 
             <div className="w20 d-flex align-items-center justify-content-center my-2">
               <label className="f3 input-font-size">信箱</label>
@@ -110,34 +115,37 @@ export default function ForgetPassword() {
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
               />
-               <button className="btn-confirm f8" onClick={getOtp}>
+              <button className="btn-confirm f8" onClick={getOtp}>
                 {delay ? count + "秒後再次取得驗證碼" : "取得驗證碼"}
               </button>
             </div>
 
-            <div className="w20 d-flex align-items-center justify-content-center mt-2 mb-4"
-            style={{position: 'relative'}}
+            <div
+              className="w20 d-flex align-items-center justify-content-center mt-2 mb-4"
+              style={{ position: "relative" }}
             >
-              <label className="f3 input-font-size">
-                新密碼
-                </label>
-                <input
-                 className="form-input f16"
-                 type={viewPwd ? 'text':'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Image
-            className="eye"
-          style={{ cursor: 'pointer',position: 'absolute',right: '35px',top: '5px'}}
-              title={viewPwd ? 'Hide password' : 'Show password'}
-              src={!viewPwd ? hidePwdImg : showPwdImg}
-              onClick={()=> SetViewPwd(prevState => !prevState)}
-              alt="show/hide password"
-            />
-            
+              <label className="f3 input-font-size">新密碼</label>
+              <input
+                className="form-input f16"
+                type={viewPwd ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Image
+                className="eye"
+                style={{
+                  cursor: "pointer",
+                  position: "absolute",
+                  right: "35px",
+                  top: "5px",
+                }}
+                title={viewPwd ? "Hide password" : "Show password"}
+                src={!viewPwd ? hidePwdImg : showPwdImg}
+                onClick={() => SetViewPwd((prevState) => !prevState)}
+                alt="show/hide password"
+              />
             </div>
-            
+
             <div className="w20 py-3 mt-3">
               <button className="btn-confirm f20" onClick={resetPassword}>
                 重新設定密碼

@@ -43,7 +43,7 @@ export default function Wishlist() {
 
       try {
         const response = await axios.put(
-          `http://localhost:3005/api/member-wishlist/cart/${user_id}`,
+          `${REACT_APP_SERVER_URL}/api/member-wishlist/cart/${user_id}`,
           { id, type }
         );
       } catch (error) {
@@ -56,7 +56,7 @@ export default function Wishlist() {
         console.log(newQuantity);
         console.log(id);
         const response = await axios.put(
-          `http://localhost:3005/api/member-wishlist/cartplus/${user_id}`,
+          `${REACT_APP_SERVER_URL}/api/member-wishlist/cartplus/${user_id}`,
           { id, newQuantity, type }
         );
       } catch (error) {
@@ -69,7 +69,7 @@ export default function Wishlist() {
   const deleteWishlist = async (user_id, id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3005/api/member-wishlist/${id}/${user_id}`
+        `${REACT_APP_SERVER_URL}/api/member-wishlist/${id}/${user_id}`
       );
       // const newWishlist = wishlist.filter((v) => v.collection_id !== id);
       // setWishlist(newWishlist);
@@ -81,7 +81,7 @@ export default function Wishlist() {
 
   const getWishlist = async (id) => {
     await axios
-      .get(`http://localhost:3005/api/member-wishlist/${id}`)
+      .get(`${REACT_APP_SERVER_URL}/api/member-wishlist/${id}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);
@@ -94,7 +94,7 @@ export default function Wishlist() {
 
   const getWishlistType = async (id) => {
     await axios
-      .get(`http://localhost:3005/api/member-wishlist/type/${id}`)
+      .get(`${REACT_APP_SERVER_URL}/api/member-wishlist/type/${id}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);
@@ -107,7 +107,7 @@ export default function Wishlist() {
 
   const getCart = (id) => {
     axios
-      .get(`http://localhost:3005/api/product/cart/cart/${id}`)
+      .get(`${REACT_APP_SERVER_URL}/api/product/cart/cart/${id}`)
       .then((response) => {
         const data = response.data.result;
         const newData = data.map((v) => {
@@ -298,7 +298,7 @@ export default function Wishlist() {
                               <button
                                 className="delete btn btn-outline-confirm size-6 m-size-7 m-2"
                                 data-bs-toggle="modal"
-                              data-bs-target="#exampleModal1"
+                                data-bs-target="#exampleModal1"
                                 onClick={() => {
                                   // 這裡作刪除的動作
                                   deleteWishlist(v.user_id, v.collection_id);

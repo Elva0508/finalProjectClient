@@ -39,7 +39,7 @@ export default function ChatDemo() {
 
       try {
         const response = await axios.post(
-          "http://localhost:3005/api/chatlist/creatchat",
+          `${REACT_APP_SERVER_URL}/api/chatlist/creatchat`,
           requestData
         );
 
@@ -85,7 +85,7 @@ export default function ChatDemo() {
     try {
       // 發送消息到後端
       const response = await fetch(
-        "http://localhost:3005/api/chatroom/sendchat",
+        `${REACT_APP_SERVER_URL}/api/chatroom/sendchat`,
         {
           method: "POST",
           headers: {

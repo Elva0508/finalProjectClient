@@ -38,7 +38,7 @@ export default function ChatList() {
   // 利用解碼後的user_id向伺服器要求資料並設定到狀態中
   const getChatList = async (user_id) => {
     console.log(user_id);
-    const res = await fetch("http://localhost:3005/api/chatlist/" + user_id);
+    const res = await fetch(`${REACT_APP_SERVER_URL}/api/chatlist/` + user_id);
 
     const data = await res.json();
 
@@ -51,7 +51,7 @@ export default function ChatList() {
   const getChatContent = async (user_id) => {
     console.log(user_id);
     const res = await fetch(
-      "http://localhost:3005/api/chatroom/newest/" + user_id
+      `${REACT_APP_SERVER_URL}/api/chatroom/newest/` + user_id
     );
 
     const data = await res.json();

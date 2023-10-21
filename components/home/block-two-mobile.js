@@ -29,7 +29,7 @@ export default function BlockTwoMobile() {
   const [productData, setProductData] = useState({ result: [] });
 
   useEffect(() => {
-    axios.get("http://localhost:3005/api/product/home").then((response) => {
+    axios.get(`${REACT_APP_SERVER_URL}/api/product/home`).then((response) => {
       setProductData({ result: response.data.result });
     });
   }, []);

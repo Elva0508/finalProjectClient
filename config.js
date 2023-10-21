@@ -1,1 +1,1 @@
-export const URL = "http://localhost:3005/";
+export const URL = process.env.REACT_APP_SERVER_URL;

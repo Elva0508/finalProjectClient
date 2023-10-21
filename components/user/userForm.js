@@ -5,9 +5,6 @@ import myProfile from "@/assets/myProfile.svg";
 import data from "@/data/taiwan.json";
 import { DatePicker, Space } from "antd";
 
-
-
-
 export default function userForm() {
   //RWD
   const device = useRWD();
@@ -30,21 +27,21 @@ export default function userForm() {
       setArea([]);
     }
   };
-  //生日  
+  //生日
   const onChange = (date, dateString) => {
     console.log(date, dateString);
   };
-  
-  const userId =1;
-//const [userId, setUserId] = useState(1); // 初始化為空字符串，或者你可以設定一個初始的使用者ID
-const [userData, setUserData] = useState(null);
+
+  const userId = 1;
+  //const [userId, setUserId] = useState(1); // 初始化為空字符串，或者你可以設定一個初始的使用者ID
+  const [userData, setUserData] = useState(null);
   useEffect(() => {
-    const apiURL = `http://localhost:3005/api/user-info?${userId}`;
+    const apiURL = `${REACT_APP_SERVER_URL}/api/user-info?${userId}`;
     fetch(apiURL)
       .then((res) => res.json())
       .then((data) => setUserData(data));
   }, []);
-  console.log(userData)
+  console.log(userData);
 
   return (
     <>
@@ -52,7 +49,7 @@ const [userData, setUserData] = useState(null);
         <div className="title">
           <p className=" size-4">
             <Image src={myProfile} alt="myProfile-logo" />
-            我的資料 
+            我的資料
           </p>
         </div>
         <form className="user-form">
@@ -65,10 +62,7 @@ const [userData, setUserData] = useState(null);
           <div className="user-form-item">
             <label className={userRfs}>姓名：</label>
             <div>
-              <input 
-              className="form-input" type="text" 
-
-              />
+              <input className="form-input" type="text" />
             </div>
           </div>
           <div className="user-form-item">
@@ -82,7 +76,6 @@ const [userData, setUserData] = useState(null);
             <label className={userRfs}>性別：</label>
             <div>
               <input
-          
                 type="radio"
                 name="blankRadio"
                 id="blankRadio1"
@@ -93,7 +86,6 @@ const [userData, setUserData] = useState(null);
               />
               男
               <input
-      
                 type="radio"
                 name="blankRadio"
                 id="blankRadio1"
@@ -107,22 +99,17 @@ const [userData, setUserData] = useState(null);
           <div className="user-form-item">
             <label className={userRfs}>生日：</label>
             <div>
-             {/* <DatePicker onChange={onChange} />  */}
-             <input type="date" value='2020-12-12'/> 
+              {/* <DatePicker onChange={onChange} />  */}
+              <input type="date" value="2020-12-12" />
             </div>
           </div>
           <div className="user-form-item">
             <label className={userRfs}>行動電話：</label>
             <div>
-              <input
-                className="form-input"
-                type="text"
-                value="0912456786"
-              />
+              <input className="form-input" type="text" value="0912456786" />
             </div>
           </div>
           <div className="user-form-item">
-
             <label className={userRfs}>地址：</label>
             <div className="d-flex">
               <select
@@ -131,7 +118,7 @@ const [userData, setUserData] = useState(null);
                 onChange={handleCityChange}
               >
                 <option selected value={-1}>
-                選擇縣/市
+                  選擇縣/市
                 </option>
                 {data.map((v) => {
                   return (
@@ -142,30 +129,24 @@ const [userData, setUserData] = useState(null);
                 })}
               </select>
 
-              <select className="form-select"  value={-1}>
-                <option selected>
-                選擇鄉鎮市區
-                </option>
+              <select className="form-select" value={-1}>
+                <option selected>選擇鄉鎮市區</option>
                 {area.map((v, i) => {
-                return(
-                  <option key={i} value={v}>
-                    {v}
-                  </option>
-                )})}
+                  return (
+                    <option key={i} value={v}>
+                      {v}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>
 
           <div className="user-form-item">
-           <label >
-        
-           </label>
-          <div>
-          <input type="text" className="form-control" value="dcsklcl"/>
-          
-        
-          </div>
-           
+            <label></label>
+            <div>
+              <input type="text" className="form-control" value="dcsklcl" />
+            </div>
           </div>
 
           <div className="user-form-item">
@@ -174,14 +155,13 @@ const [userData, setUserData] = useState(null);
               <input className="form-input" type="number" value="1" />
             </div>
           </div>
-      
+
           <div className="user-form-item d-flex justify-content-center">
             <button className="btn-outline-confirm">取消</button>
             <button className="btn-confirm">儲存</button>
           </div>
         </form>
       </div>
-    
     </>
   );
 }

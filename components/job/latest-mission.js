@@ -1,74 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Link from "next/link";
 
 // pc版（默認導出）
 export default function LatestMission() {
-
-  const [latestMissions, setLatestMissions] = useState([])
+  const [latestMissions, setLatestMissions] = useState([]);
 
   const getLatestMissions = async () => {
-    await axios.get("http://localhost:3005/api/mission/latest-missions")
+    await axios
+      .get(`${REACT_APP_SERVER_URL}/api/mission/latest-missions`)
       .then((response) => {
         const data = response.data.data;
         console.log("data是" + data);
-        setLatestMissions(data)
+        setLatestMissions(data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  }
+  };
   useEffect(() => {
-    getLatestMissions()
-  }, [])
+    getLatestMissions();
+  }, []);
 
   // 格式化日期
   function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     return `${year}/${month}/${day}`;
   }
 
   // 為每個卡片創建獨立的isFavorite狀態數組
-  const [isFavorites, setIsFavorites] = useState(latestMissions.map(() => false));
+  const [isFavorites, setIsFavorites] = useState(
+    latestMissions.map(() => false)
+  );
 
   const toggleFavorite = (index) => {
-      const newFavorites = [...isFavorites];
-      newFavorites[index] = !newFavorites[index];
-      setIsFavorites(newFavorites);
+    const newFavorites = [...isFavorites];
+    newFavorites[index] = !newFavorites[index];
+    setIsFavorites(newFavorites);
   };
 
   return (
     <>
       {latestMissions.map((v, i) => {
         return (
-          <div className='latest-mission-card d-flex'>
-            <Link href={`/work/find-mission/${v.mission_id}`} >
-              <div className='mission-img'>
+          <div className="latest-mission-card d-flex">
+            <Link href={`/work/find-mission/${v.mission_id}`}>
+              <div className="mission-img">
                 <img src={v.file_path} alt="任務" />
               </div>
             </Link>
-            <div className='mission-content ms-2'>
-              <Link href={`/work/find-mission/${v.mission_id}`} >
-                <div className='title size-6'>{v.title}</div>
+            <div className="mission-content ms-2">
+              <Link href={`/work/find-mission/${v.mission_id}`}>
+                <div className="title size-6">{v.title}</div>
               </Link>
-              <div className='d-flex justify-content-between mt-1 mt-sm-2'>
-                <div className='size-7'>{v.city}{v.area}<br />{formatDate(v.post_date)}</div>
-                <img src={isFavorites[i] ? "/heart-clicked.svg" : "/heart.svg"} alt={isFavorites[i] ? "已收藏" : "未收藏"} onClick={() => toggleFavorite(i)} />
+              <div className="d-flex justify-content-between mt-1 mt-sm-2">
+                <div className="size-7">
+                  {v.city}
+                  {v.area}
+                  <br />
+                  {formatDate(v.post_date)}
+                </div>
+                <img
+                  src={isFavorites[i] ? "/heart-clicked.svg" : "/heart.svg"}
+                  alt={isFavorites[i] ? "已收藏" : "未收藏"}
+                  onClick={() => toggleFavorite(i)}
+                />
               </div>
-              <div className='d-flex justify-content-between align-items-end price'>
-                <div >單次<span className='size-6'> NT${v.price}</span></div>
-                <button className='btn-confirm size-6'>應徵</button>
+              <div className="d-flex justify-content-between align-items-end price">
+                <div>
+                  單次<span className="size-6"> NT${v.price}</span>
+                </div>
+                <button className="btn-confirm size-6">應徵</button>
               </div>
             </div>
           </div>
-        )
-      })
-      }
+        );
+      })}
     </>
-  )
+  );
 }
 
 // mobile版（命名導出）
@@ -86,7 +98,9 @@ export const MobileLatestMission = () => {
 
   const getLatestMissions = async () => {
     try {
-      const response = await axios.get("http://localhost:3005/api/mission/latest-missions");
+      const response = await axios.get(
+        `${REACT_APP_SERVER_URL}/api/mission/latest-missions`
+      );
       const data = response.data.data;
       setLatestMissions(data);
     } catch (error) {
@@ -102,8 +116,8 @@ export const MobileLatestMission = () => {
   function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     return `${year}/${month}/${day}`;
   }
 
@@ -111,7 +125,7 @@ export const MobileLatestMission = () => {
     if (!isAnimating) {
       setIsAnimating(true); // 開始動畫
       // 參數為先前的索引值（預設0）也就是當前活動的幻燈片索引
-      setActiveIndex((prevIndex) => (prevIndex + 1) % latestMissions.length);  // 取餘數確保索引保持在有效範圍內
+      setActiveIndex((prevIndex) => (prevIndex + 1) % latestMissions.length); // 取餘數確保索引保持在有效範圍內
     }
   };
 
@@ -132,12 +146,12 @@ export const MobileLatestMission = () => {
       setIsIndicatorsDisabled(false);
     };
 
-    const carousel = document.querySelector('.carousel-inner');
-    carousel.addEventListener('transitionend', transitionEndHandler);
+    const carousel = document.querySelector(".carousel-inner");
+    carousel.addEventListener("transitionend", transitionEndHandler);
 
     // 組件卸載（或下一次 useEffect 執行時）時，移除之前附加的事件處理程序
     return () => {
-      carousel.removeEventListener('transitionend', transitionEndHandler);
+      carousel.removeEventListener("transitionend", transitionEndHandler);
     };
   }, []);
 
@@ -147,7 +161,11 @@ export const MobileLatestMission = () => {
   };
 
   return (
-    <div id="carouselExampleIndicators" className="carousel slide pb-3" data-bs-ride="carousel">
+    <div
+      id="carouselExampleIndicators"
+      className="carousel slide pb-3"
+      data-bs-ride="carousel"
+    >
       <div className="carousel-indicators mt-5">
         {latestMissions.map((_, index) => (
           <button
@@ -158,7 +176,9 @@ export const MobileLatestMission = () => {
             // className={index === activeIndex ? "active" : ""}
             // aria-current={index === activeIndex ? "true" : ""}
             // aria-label={`Slide ${index + 1}`}
-            className={`${index === activeIndex ? "active" : ""} ${isIndicatorsDisabled ? "disabled" : ""}`}
+            className={`${index === activeIndex ? "active" : ""} ${
+              isIndicatorsDisabled ? "disabled" : ""
+            }`}
             aria-current={index === activeIndex ? "true" : ""}
             aria-label={`Slide ${index + 1}`}
             onClick={() => handleIndicatorClick(index)}
@@ -167,20 +187,34 @@ export const MobileLatestMission = () => {
       </div>
       <div className="carousel-inner">
         {latestMissions.map((v, index) => (
-          <div key={v.id} className={`carousel-item ${index === activeIndex ? "active" : ""}`}>
-            <div className='latest-mission-card d-flex'>
-              <div className='mission-img'>
+          <div
+            key={v.id}
+            className={`carousel-item ${index === activeIndex ? "active" : ""}`}
+          >
+            <div className="latest-mission-card d-flex">
+              <div className="mission-img">
                 <img src={v.file_path} alt="任務" />
               </div>
-              <div className='mission-content ms-2'>
-                <div className='title size-6'>{v.title}</div>
-                <div className='d-flex justify-content-between mt-1 mt-sm-2'>
-                  <div className='size-7'>{v.city}{v.area}<br />{formatDate(v.post_date)}</div>
-                  <img src={isFavorite ? "/heart-clicked.svg" : "/heart.svg"} alt={isFavorite ? "已收藏" : "未收藏"} onClick={toggleFavorite} />
+              <div className="mission-content ms-2">
+                <div className="title size-6">{v.title}</div>
+                <div className="d-flex justify-content-between mt-1 mt-sm-2">
+                  <div className="size-7">
+                    {v.city}
+                    {v.area}
+                    <br />
+                    {formatDate(v.post_date)}
+                  </div>
+                  <img
+                    src={isFavorite ? "/heart-clicked.svg" : "/heart.svg"}
+                    alt={isFavorite ? "已收藏" : "未收藏"}
+                    onClick={toggleFavorite}
+                  />
                 </div>
-                <div className='d-flex justify-content-between align-items-end price'>
-                  <div >單次<span className='size-6'> NT${v.price}</span></div>
-                  <button className='btn-confirm size-6'>應徵</button>
+                <div className="d-flex justify-content-between align-items-end price">
+                  <div>
+                    單次<span className="size-6"> NT${v.price}</span>
+                  </div>
+                  <button className="btn-confirm size-6">應徵</button>
                 </div>
               </div>
             </div>
@@ -188,12 +222,24 @@ export const MobileLatestMission = () => {
         ))}
       </div>
       {/* 上一張 */}
-      <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" onClick={prevSlide}>
+      <button
+        className="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev"
+        onClick={prevSlide}
+      >
         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
         <span className="visually-hidden">Previous</span>
       </button>
       {/* 下一張 */}
-      <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" onClick={nextSlide}>
+      <button
+        className="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next"
+        onClick={nextSlide}
+      >
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
         <span className="visually-hidden">Next</span>
       </button>

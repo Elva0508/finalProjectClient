@@ -22,7 +22,7 @@ export default function History() {
 
   const getHistory = async (id) => {
     await axios
-      .get(`http://localhost:3005/api/member-history/${id}`)
+      .get(`${REACT_APP_SERVER_URL}/api/member-history/${id}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);
@@ -36,7 +36,7 @@ export default function History() {
   const getCount = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3005/api/member-history/count/count`
+        `${REACT_APP_SERVER_URL}/api/member-history/count/count`
       );
       const data = response.data.result;
       console.log(data);

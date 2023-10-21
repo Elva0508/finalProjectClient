@@ -51,7 +51,7 @@ const ResetUserPassword = () => {
     }
     try {
       const response = await fetch(
-        `http://localhost:3005/api/user/change-password/${userId}`,
+        `${REACT_APP_SERVER_URL}/api/user/change-password/${userId}`,
         {
           method: "PUT",
           headers: {

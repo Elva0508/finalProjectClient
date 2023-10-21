@@ -30,7 +30,7 @@ export default function BlockFourMobile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3005/api/product/home/sales")
+      .get(`${REACT_APP_SERVER_URL}/api/product/home/sales`)
       .then((response) => {
         setProductData({ result: response.data.result });
       });
