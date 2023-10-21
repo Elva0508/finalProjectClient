@@ -40,7 +40,7 @@ export default function MissionCard() {
   const getAllMissions = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/mission/all-missions`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/all-missions`
       );
       const data = response.data.data;
       console.log(data);

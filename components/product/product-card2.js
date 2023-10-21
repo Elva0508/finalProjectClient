@@ -48,7 +48,9 @@ export default function ProductCard2({ productData, mainPic, setMainPic }) {
   // const [selectedTypeId, setSelectedTypeId] = useState('');
   const getCollection = () => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/collections/${userId}`)
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/api/product/collections/${userId}`
+      )
       .then((response) => {
         setCollection(response.data.result);
         console.log(response.data.result);
@@ -70,7 +72,7 @@ export default function ProductCard2({ productData, mainPic, setMainPic }) {
       try {
         // 發送HTTP請求將商品添加到購物車
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/product/collections/${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/product/collections/${userId}`,
           { product_id }
         );
         alert("已加入收藏囉");
@@ -102,7 +104,7 @@ export default function ProductCard2({ productData, mainPic, setMainPic }) {
       try {
         // 發送HTTP請求將商品添加到購物車，product_id 放在 URL 中
         const response = await axios.delete(
-          `${REACT_APP_SERVER_URL}/api/product/collections/${userId}/${product_id}`
+          `${process.env.REACT_APP_SERVER_URL}/api/product/collections/${userId}/${product_id}`
         );
         alert("已取消收藏");
       } catch (error) {

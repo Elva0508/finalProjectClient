@@ -66,7 +66,9 @@ export default function ProductDetail() {
   useEffect(() => {
     if (product_id) {
       axios
-        .get(`${REACT_APP_SERVER_URL}/api/product/product-detail/${product_id}`)
+        .get(
+          `${process.env.REACT_APP_SERVER_URL}/api/product/product-detail/${product_id}`
+        )
         .then((response) => {
           setProductData(response.data.result); // 直接设置为数组
           setMainPic(response.data.result[0].images_one);
@@ -93,7 +95,7 @@ export default function ProductDetail() {
     if (product_id) {
       axios
         .get(
-          `${REACT_APP_SERVER_URL}/api/product/product-detail/${product_id}/reviews`
+          `${process.env.REACT_APP_SERVER_URL}/api/product/product-detail/${product_id}/reviews`
         )
         .then((response) => {
           setReviewData(response.data.result); // 直接设置为数组
@@ -158,7 +160,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/recommend`) // 設有一個API可以獲取隨機產品
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/recommend`) // 設有一個API可以獲取隨機產品
       .then((response) => {
         // 從API響應中獲取隨機產品
         const randomProducts = response.data;
@@ -176,7 +178,7 @@ export default function ProductDetail() {
   const [selectedTypeId, setSelectedTypeId] = useState("");
   const getCart = (id) => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/cart/cart/${id}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/cart/cart/${id}`)
       .then((response) => {
         const data = response.data.result;
         const newData = data.map((v) => {
@@ -210,7 +212,7 @@ export default function ProductDetail() {
       try {
         // 發送HTTP請求將商品添加到購物車
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/product/cart1/${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/product/cart1/${userId}`,
           { product_id, product_type_id, quantity }
           // console.log(userId,product_id, product_type_id, quantity),
           // console.log('我是會員'+ userId)
@@ -230,7 +232,7 @@ export default function ProductDetail() {
 
         // 發送HTTP請求將商品數量更新為新數量
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/product/cart2/${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/product/cart2/${userId}`,
           { product_id, newQuantity, product_type_id }
         );
       } catch (error) {
@@ -248,7 +250,9 @@ export default function ProductDetail() {
   // const [selectedTypeId, setSelectedTypeId] = useState('');
   const getCollection = () => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/collections/${userId}`)
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/api/product/collections/${userId}`
+      )
       .then((response) => {
         setCollection(response.data.result);
         console.log(response.data.result);
@@ -270,7 +274,7 @@ export default function ProductDetail() {
       try {
         // 發送HTTP請求將商品添加到購物車
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/product/collections/${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/product/collections/${userId}`,
           { product_id }
         );
         alert("已加入收藏囉");
@@ -302,7 +306,7 @@ export default function ProductDetail() {
       try {
         // 發送HTTP請求將商品添加到購物車，product_id 放在 URL 中
         const response = await axios.delete(
-          `${REACT_APP_SERVER_URL}/api/product/collections/${userId}/${product_id}`
+          `${process.env.REACT_APP_SERVER_URL}/api/product/collections/${userId}/${product_id}`
         );
         alert("已取消收藏");
       } catch (error) {

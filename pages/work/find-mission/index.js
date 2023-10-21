@@ -164,7 +164,7 @@ const MyFilter = ({
   useEffect(() => {
     console.log(`選中的missionCity是: ${missionCity}`);
     console.log(
-      `"現在是接"+${REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}`
+      `"現在是接"+${process.env.REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}`
     );
   }, [missionCity]);
 
@@ -179,7 +179,7 @@ const MyFilter = ({
   useEffect(() => {
     console.log(`選中的missionArea是: ${missionArea}`);
     console.log(
-      `"現在是接"++${REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}`
+      `"現在是接"++${process.env.REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}`
     );
   }, [missionArea]);
 
@@ -511,7 +511,7 @@ const FilterMobile = ({
   useEffect(() => {
     console.log(`選中的missionCity是: ${missionCity}`);
     console.log(
-      `"現在是接"+${REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}`
+      `"現在是接"+${process.env.REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}`
     );
   }, [missionCity]);
 
@@ -526,7 +526,7 @@ const FilterMobile = ({
   useEffect(() => {
     console.log(`選中的missionArea是: ${missionArea}`);
     console.log(
-      `"現在是接"++${REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}`
+      `"現在是接"++${process.env.REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}`
     );
   }, [missionArea]);
 
@@ -771,7 +771,7 @@ const Sort = ({
   useEffect(() => {
     console.log("現在是" + sortOrder);
     console.log(
-      `排序現在是接+${REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&updateDate=${updateDate}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}&missionSearch=${search}`
+      `排序現在是接+${process.env.REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&updateDate=${updateDate}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}&missionSearch=${search}`
     );
   }, [sortOrder]);
 
@@ -817,7 +817,7 @@ const LatestMission = ({ userId }) => {
 
   const getLatestMissions = async () => {
     await axios
-      .get(`${REACT_APP_SERVER_URL}/api/mission/latest-missions`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/mission/latest-missions`)
       .then((response) => {
         const data = response.data.data;
         console.log("data是" + data);
@@ -866,7 +866,7 @@ const LatestMission = ({ userId }) => {
     const fetchFavoriteMissions = async () => {
       try {
         const response = await axios.get(
-          `${REACT_APP_SERVER_URL}/api/mission/fav?userId=${userId}`
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/fav?userId=${userId}`
         );
         const favoriteMissionIds = response.data.result.map(
           (fav) => fav.mission_id
@@ -902,14 +902,14 @@ const LatestMission = ({ userId }) => {
       if (!isFavorites[index]) {
         // 如果任務未被收藏，發送加入收藏的請求
         await axios.put(
-          `${REACT_APP_SERVER_URL}/api/mission/add-fav?userId=${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/add-fav?userId=${userId}`,
           { missionId }
         );
         console.log("已加入收藏");
       } else {
         // 如果任務已被收藏，發送取消收藏的請求
         await axios.delete(
-          `${REACT_APP_SERVER_URL}/api/mission/delete-fav?userId=${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/delete-fav?userId=${userId}`,
           { data: { missionId } }
         );
         console.log("已取消收藏");
@@ -1036,7 +1036,7 @@ const MobileLatestMission = ({ userId }) => {
   const getLatestMissions = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/mission/latest-missions`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/latest-missions`
       );
       const data = response.data.data;
       setLatestMissions(data);
@@ -1105,7 +1105,7 @@ const MobileLatestMission = ({ userId }) => {
     const fetchFavoriteMissions = async () => {
       try {
         const response = await axios.get(
-          `${REACT_APP_SERVER_URL}/api/mission/fav?userId=${userId}`
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/fav?userId=${userId}`
         );
         const favoriteMissionIds = response.data.result.map(
           (fav) => fav.mission_id
@@ -1141,14 +1141,14 @@ const MobileLatestMission = ({ userId }) => {
       if (!isFavorites[index]) {
         // 如果任務未被收藏，發送加入收藏的請求
         await axios.put(
-          `${REACT_APP_SERVER_URL}/api/mission/add-fav?userId=${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/add-fav?userId=${userId}`,
           { missionId }
         );
         console.log("已加入收藏");
       } else {
         // 如果任務已被收藏，發送取消收藏的請求
         await axios.delete(
-          `${REACT_APP_SERVER_URL}/api/mission/delete-fav?userId=${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/delete-fav?userId=${userId}`,
           { data: { missionId } }
         );
         console.log("已取消收藏");
@@ -1357,7 +1357,9 @@ const MissionCard = ({
   const [collection, setCollection] = useState([]); //用來儲存收藏
   const getCollection = () => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/mission/collections/${userId}`)
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/collections/${userId}`
+      )
       .then((response) => {
         setCollection(response.data.result);
         console.log(response.data.result);
@@ -1382,7 +1384,7 @@ const MissionCard = ({
       try {
         // 發送HTTP請求將商品添加到購物車
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/mission/collections/${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/collections/${userId}`,
           { mission_id }
         );
       } catch (error) {
@@ -1401,7 +1403,7 @@ const MissionCard = ({
       try {
         // 發送HTTP請求將任務移除收藏，mission_id 放在 URL 中
         const response = await axios.delete(
-          `${REACT_APP_SERVER_URL}/api/mission/collections/${userId}/${mission_id}`
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/collections/${userId}/${mission_id}`
         );
       } catch (error) {
         console.error("錯誤：", error);
@@ -1585,7 +1587,7 @@ export default function MissionList() {
 
   const getAllMissions = async () => {
     try {
-      let apiUrl = `${REACT_APP_SERVER_URL}/api/mission/all-missions?sortOrder=${sortOrder}&sortBy=${sortBy}`;
+      let apiUrl = `${process.env.REACT_APP_SERVER_URL}/api/mission/all-missions?sortOrder=${sortOrder}&sortBy=${sortBy}`;
 
       if (missionType) {
         apiUrl += `&missionType=${missionType}`;
@@ -1669,7 +1671,7 @@ export default function MissionList() {
     // setSelectedCity(null); // 重置城市选择为 null 或默认值
     // setSelectedArea(null); // 重置地区选择为 null 或默认值
     console.log(
-      `重載後是+${REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&updateDate=${updateDate}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}&missionSearch=${search}`
+      `重載後是+${process.env.REACT_APP_SERVER_URL}/api/mission/all-missions?missionType=${missionType}&updateDate=${updateDate}&missionCity=${missionCity}&missionArea=${missionArea}&sortOrder=${sortOrder}&sortBy=${sortBy}&missionSearch=${search}`
     );
   }, []);
 

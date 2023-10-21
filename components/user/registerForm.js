@@ -31,7 +31,7 @@ const RegisterForm = () => {
   const onSubmit = async (values, { setSubmitting }) => {
     try {
       const response = await fetch(
-        `${REACT_APP_SERVER_URL}/api/auth-jwt/register`,
+        `${process.env.REACT_APP_SERVER_URL}/api/auth-jwt/register`,
         {
           method: "POST",
           headers: {

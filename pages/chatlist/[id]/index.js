@@ -62,7 +62,7 @@ export default function Chatroom() {
   // 利用網址傳來的chatlist_id向伺服器要求資料並設定到狀態中
   const getChatContent = async (chatlist_id) => {
     const res = await fetch(
-      `${REACT_APP_SERVER_URL}/api/chatroom/` + chatlist_id
+      `${process.env.REACT_APP_SERVER_URL}/api/chatroom/` + chatlist_id
     );
 
     const ChatContentData = await res.json();
@@ -75,7 +75,10 @@ export default function Chatroom() {
   // 利用網址傳來的chatlist_id + Token解出來的user_id向伺服器要求聊天室標題資料並設定到狀態中
   const getChatTitle = async (chatlist_id, userId) => {
     const res = await fetch(
-      `${REACT_APP_SERVER_URL}/api/chatlist/` + userId + "/" + chatlist_id
+      `${process.env.REACT_APP_SERVER_URL}/api/chatlist/` +
+        userId +
+        "/" +
+        chatlist_id
     );
 
     const ChatTitleData = await res.json();
@@ -99,7 +102,7 @@ export default function Chatroom() {
   // 利用token解出的userId + 向伺服器要求目前正在登入狀態的userInfo
   const getUserInfo = async (userId) => {
     const res = await fetch(
-      `${REACT_APP_SERVER_URL}/api/chatroom/userinfo/` + userId
+      `${process.env.REACT_APP_SERVER_URL}/api/chatroom/userinfo/` + userId
     );
 
     const UserInfoData = await res.json();
@@ -127,7 +130,7 @@ export default function Chatroom() {
     try {
       // 發送消息到後端
       const response = await fetch(
-        `${REACT_APP_SERVER_URL}/api/chatroom/sendchat`,
+        `${process.env.REACT_APP_SERVER_URL}/api/chatroom/sendchat`,
         {
           method: "POST",
           headers: {

@@ -309,7 +309,7 @@ export const RecordDetailTemplate = ({
 
       try {
         const response = await axios.post(
-          `${REACT_APP_SERVER_URL}/api/chatlist/creatchat`,
+          `${process.env.REACT_APP_SERVER_URL}/api/chatlist/creatchat`,
           requestData
         );
 

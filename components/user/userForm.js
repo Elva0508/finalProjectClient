@@ -36,7 +36,7 @@ export default function userForm() {
   //const [userId, setUserId] = useState(1); // 初始化為空字符串，或者你可以設定一個初始的使用者ID
   const [userData, setUserData] = useState(null);
   useEffect(() => {
-    const apiURL = `${REACT_APP_SERVER_URL}/api/user-info?${userId}`;
+    const apiURL = `${process.env.REACT_APP_SERVER_URL}/api/user-info?${userId}`;
     fetch(apiURL)
       .then((res) => res.json())
       .then((data) => setUserData(data));

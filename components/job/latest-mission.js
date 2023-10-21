@@ -8,7 +8,7 @@ export default function LatestMission() {
 
   const getLatestMissions = async () => {
     await axios
-      .get(`${REACT_APP_SERVER_URL}/api/mission/latest-missions`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/mission/latest-missions`)
       .then((response) => {
         const data = response.data.data;
         console.log("data是" + data);
@@ -99,7 +99,7 @@ export const MobileLatestMission = () => {
   const getLatestMissions = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/mission/latest-missions`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/latest-missions`
       );
       const data = response.data.data;
       setLatestMissions(data);

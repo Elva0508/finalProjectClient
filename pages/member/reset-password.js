@@ -51,7 +51,7 @@ const ResetUserPassword = () => {
     }
     try {
       const response = await fetch(
-        `${REACT_APP_SERVER_URL}/api/user/change-password/${userId}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/user/change-password/${userId}`,
         {
           method: "PUT",
           headers: {

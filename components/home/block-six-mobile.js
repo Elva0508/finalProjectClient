@@ -19,7 +19,7 @@ export default function NewCarousel() {
 
   // Fetch article data and set it to the state
   const getArticleListCard = async () => {
-    const res = await fetch(`${REACT_APP_SERVER_URL}/api/article/`);
+    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/article/`);
     const data = await res.json();
     if (Array.isArray(data)) setArticleListCard(data);
   };

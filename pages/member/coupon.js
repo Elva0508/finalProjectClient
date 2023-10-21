@@ -15,7 +15,7 @@ const UserCouponPage = () => {
   const searchInput = useRef(null);
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const apiUrl = `${REACT_APP_SERVER_URL}/api/user/user-coupon`;
+  const apiUrl = `${process.env.REACT_APP_SERVER_URL}/api/user/user-coupon`;
 
   useEffect(() => {
     axios

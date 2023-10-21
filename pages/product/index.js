@@ -86,15 +86,17 @@ export default function ProductList() {
   const [mainPic, setMainPic] = useState(""); // 初始化為 v.images_one
   // 讀取all product 資料庫資料
   useEffect(() => {
-    axios.get(`${REACT_APP_SERVER_URL}/api/product`).then((response) => {
-      const data = response.data.result;
-      console.log(data);
-      setProductData(data);
-      setProductDataOrigin(data);
-      // 將伺服器端的 result 放入物件中
-      setMainPic(data[0].images_one);
-      console.log(response.data.result[0].images_one);
-    });
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product`)
+      .then((response) => {
+        const data = response.data.result;
+        console.log(data);
+        setProductData(data);
+        setProductDataOrigin(data);
+        // 將伺服器端的 result 放入物件中
+        setMainPic(data[0].images_one);
+        console.log(response.data.result[0].images_one);
+      });
   }, []);
 
   //分頁
@@ -136,7 +138,7 @@ export default function ProductList() {
   const [subcategoryData, setSubcategoryData] = useState({ result: [] });
   useEffect(() => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/category`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/category`)
       .then((response) => {
         setSubcategoryData({ result: response.data.result });
       });
@@ -145,7 +147,7 @@ export default function ProductList() {
   const [subcategoryDataOne, setSubcategoryDataOne] = useState([]);
   useEffect(() => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/subcategory`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/subcategory`)
       .then((response) => {
         setSubcategoryDataOne(response.data.result);
         console.log(subcategoryDataOne);
@@ -265,17 +267,19 @@ export default function ProductList() {
   //篩選重複的廠商
   const [vendorData, setVendorData] = useState({ result: [] });
   useEffect(() => {
-    axios.get(`${REACT_APP_SERVER_URL}/api/product/vendor`).then((response) => {
-      console.log(response.data.result);
-      setVendorData({ result: response.data.result });
-    });
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/vendor`)
+      .then((response) => {
+        console.log(response.data.result);
+        setVendorData({ result: response.data.result });
+      });
   }, []);
 
   //傳送search的到後端
   const handleSearch = (search) => {
     console.log("handleSearch 函数被使用，search結果:", search);
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/filter_sort`, {
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/filter_sort`, {
         params: {
           search,
         },

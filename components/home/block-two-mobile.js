@@ -29,9 +29,11 @@ export default function BlockTwoMobile() {
   const [productData, setProductData] = useState({ result: [] });
 
   useEffect(() => {
-    axios.get(`${REACT_APP_SERVER_URL}/api/product/home`).then((response) => {
-      setProductData({ result: response.data.result });
-    });
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/home`)
+      .then((response) => {
+        setProductData({ result: response.data.result });
+      });
   }, []);
 
   // const [isFavorites, setIsFavorites] = useState(() =>

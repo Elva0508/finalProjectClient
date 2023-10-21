@@ -57,7 +57,7 @@ const ProfilePage = () => {
         console.error("token解析錯誤", error);
       }
     }
-    const apiURL = `${REACT_APP_SERVER_URL}/api/user/user-profile/${userId}`;
+    const apiURL = `${process.env.REACT_APP_SERVER_URL}/api/user/user-profile/${userId}`;
     fetch(apiURL)
       .then((res) => {
         return res.json();
@@ -131,13 +131,16 @@ const ProfilePage = () => {
       pet_number: petCount,
     };
 
-    fetch(`${REACT_APP_SERVER_URL}/api/user/user-profile-change/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedUserData),
-    })
+    fetch(
+      `${process.env.REACT_APP_SERVER_URL}/api/user/user-profile-change/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedUserData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

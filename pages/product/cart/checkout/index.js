@@ -50,7 +50,7 @@ export default function Checkout() {
 
   const getCommonAddress = (id) => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/cart/address/${id}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/cart/address/${id}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);
@@ -132,7 +132,7 @@ export default function Checkout() {
     if (commonAddress.length == 0) {
       try {
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/product/cart/address`,
+          `${process.env.REACT_APP_SERVER_URL}/api/product/cart/address`,
           { userid, city, number, address }
         );
       } catch (error) {
@@ -141,7 +141,7 @@ export default function Checkout() {
     } else {
       try {
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/product/cart/updateAddress`,
+          `${process.env.REACT_APP_SERVER_URL}/api/product/cart/updateAddress`,
           { userid, city, number, address }
         );
       } catch (error) {
@@ -196,7 +196,7 @@ export default function Checkout() {
     }
     try {
       const response = await axios.put(
-        `${REACT_APP_SERVER_URL}/api/product/cart/checkout`,
+        `${process.env.REACT_APP_SERVER_URL}/api/product/cart/checkout`,
         {
           coupon,
           userid,
@@ -223,7 +223,7 @@ export default function Checkout() {
       const quantity = finalCart[i].quantity;
       try {
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/product/cart/checkout/detail`,
+          `${process.env.REACT_APP_SERVER_URL}/api/product/cart/checkout/detail`,
           { orderNumber, productId, productTypeId, quantity }
         );
       } catch (error) {
@@ -235,7 +235,7 @@ export default function Checkout() {
       const id = finalCart[i].cart_id;
       try {
         const response = await axios.delete(
-          `${REACT_APP_SERVER_URL}/api/product/cart/${id}`
+          `${process.env.REACT_APP_SERVER_URL}/api/product/cart/${id}`
         );
       } catch (error) {
         console.error("Error:", error);
@@ -300,7 +300,7 @@ export default function Checkout() {
     // products將會組合在packages屬性之下
 
     const response = await axios.post(
-      `${REACT_APP_SERVER_URL}/api/pay/create-order`,
+      `${process.env.REACT_APP_SERVER_URL}/api/pay/create-order`,
       {
         amount: totalPrice,
         coupon_id: coupon,
@@ -326,7 +326,7 @@ export default function Checkout() {
       const quantity = finalCart[i].quantity;
       try {
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/product/cart/checkout/detail`,
+          `${process.env.REACT_APP_SERVER_URL}/api/product/cart/checkout/detail`,
           { orderNumber, productId, productTypeId, quantity }
         );
       } catch (error) {
@@ -339,7 +339,7 @@ export default function Checkout() {
       console.log(id);
       try {
         const response = await axios.delete(
-          `${REACT_APP_SERVER_URL}/api/product/cart/${id}`
+          `${process.env.REACT_APP_SERVER_URL}/api/product/cart/${id}`
         );
       } catch (error) {
         console.error("Error:", error);

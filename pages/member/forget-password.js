@@ -34,7 +34,7 @@ export default function ForgetPassword() {
 
     try {
       const res = await axios.post(
-        `${REACT_APP_SERVER_URL}/api/reset-password/otp`,
+        `${process.env.REACT_APP_SERVER_URL}/api/reset-password/otp`,
         {
           email,
         }
@@ -59,7 +59,7 @@ export default function ForgetPassword() {
   const resetPassword = async () => {
     try {
       const res = await axios.post(
-        `${REACT_APP_SERVER_URL}/api/reset-password/reset`,
+        `${process.env.REACT_APP_SERVER_URL}/api/reset-password/reset`,
         {
           email,
           token,

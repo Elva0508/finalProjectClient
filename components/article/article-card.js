@@ -23,7 +23,10 @@ export default function ArticleCard() {
   // 向伺服器要資料設定到狀態中
   const getArticles = async ({ article_category_id, id }) => {
     const res = await fetch(
-      `${REACT_APP_SERVER_URL}/api/article/` + article_category_id + "/" + id
+      `${process.env.REACT_APP_SERVER_URL}/api/article/` +
+        article_category_id +
+        "/" +
+        id
     );
 
     const data = await res.json();

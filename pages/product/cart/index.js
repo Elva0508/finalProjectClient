@@ -29,7 +29,7 @@ export default function Cart() {
   //抓購物車內所有商品 ，並增加屬性
   const getCart = (id) => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/cart/cart/${id}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/cart/cart/${id}`)
       .then((response) => {
         const data = response.data.result;
         const newData = data.map((v) => {
@@ -44,9 +44,12 @@ export default function Cart() {
   //抓可使用優惠券
   const getCoupon = async (id, allPrice) => {
     let data = await axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/cart/coupon/coupon`, {
-        params: { allPrice, id },
-      })
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/api/product/cart/coupon/coupon`,
+        {
+          params: { allPrice, id },
+        }
+      )
       .then((response) => {
         if (allPrice !== 0) {
           const data = response.data.result;
@@ -139,7 +142,7 @@ export default function Cart() {
     const newquantity = parseInt(quantity) + parseInt(value);
     try {
       const response = await axios.put(
-        `${REACT_APP_SERVER_URL}/api/product/cart`,
+        `${process.env.REACT_APP_SERVER_URL}/api/product/cart`,
         { newquantity, id }
       );
     } catch (error) {
@@ -150,7 +153,7 @@ export default function Cart() {
   const deleteCart = async (id) => {
     try {
       const response = await axios.delete(
-        `${REACT_APP_SERVER_URL}/api/product/cart/${id}`
+        `${process.env.REACT_APP_SERVER_URL}/api/product/cart/${id}`
       );
       const newCart = cart.filter((v) => v.cart_id !== id);
       setCart(newCart);

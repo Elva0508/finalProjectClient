@@ -51,7 +51,9 @@ function Pay(props) {
     //   ],
     // })
     window.location.href =
-      `${REACT_APP_SERVER_URL}/api/pay/reserve` + "?orderId=" + orderNumber;
+      `${process.env.REACT_APP_SERVER_URL}/api/pay/reserve` +
+      "?orderId=" +
+      orderNumber;
     localStorage.removeItem("orderNumber");
     localStorage.removeItem("totalPrice");
     localStorage.removeItem("freight");

@@ -9,7 +9,9 @@ export default function ArticleListCard() {
 
   // // 向伺服器要求資料，設定到狀態中
   const getArticleListCard = async () => {
-    const res = await fetch(`${REACT_APP_SERVER_URL}/api/article-home`);
+    const res = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}/api/article-home`
+    );
 
     const data = await res.json();
 

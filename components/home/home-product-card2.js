@@ -31,9 +31,11 @@ export default function HomeProductCard2() {
   const [productData, setProductData] = useState({ result: [] }); // 初始化為一個帶有 result 屬性的物件
 
   useEffect(() => {
-    axios.get(`${REACT_APP_SERVER_URL}/api/product/home`).then((response) => {
-      setProductData({ result: response.data.result }); // 將伺服器端的 result 放入物件中
-    });
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/home`)
+      .then((response) => {
+        setProductData({ result: response.data.result }); // 將伺服器端的 result 放入物件中
+      });
   }, []);
 
   // //添加商品到收藏的函式

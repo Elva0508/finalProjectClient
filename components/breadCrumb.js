@@ -18,7 +18,7 @@ function BreadCrumb(props) {
 
   const getProduct = () => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product`)
       .then((response) => {
         const data = response.data.result;
         setProduct(data);
@@ -29,7 +29,7 @@ function BreadCrumb(props) {
   };
   const getArticle = () => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/breadcrumb/article`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/breadcrumb/article`)
       .then((response) => {
         const data = response.data.result;
         setArticle(data);
@@ -40,7 +40,7 @@ function BreadCrumb(props) {
   };
   const getSubcategory = () => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/breadcrumb/subcategory`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/breadcrumb/subcategory`)
       .then((response) => {
         const data = response.data.result;
         setSubcategory(data);

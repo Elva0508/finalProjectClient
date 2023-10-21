@@ -67,7 +67,7 @@ export default function HistoryStatusOne({
     console.log(id);
     try {
       const response = await axios.put(
-        `${REACT_APP_SERVER_URL}/api/member-history/updatetype`,
+        `${process.env.REACT_APP_SERVER_URL}/api/member-history/updatetype`,
         { id }
       );
     } catch (error) {

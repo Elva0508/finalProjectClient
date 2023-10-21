@@ -10,7 +10,7 @@ function PayConfirm(props) {
   const router = useRouter();
   const getOrder = (id) => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/cart/order/${id}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/cart/order/${id}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);

@@ -36,7 +36,7 @@ export default function Login() {
   const onSubmit = async (values, { setSubmitting }) => {
     try {
       const response = await fetch(
-        `${REACT_APP_SERVER_URL}/api/auth-jwt/login`,
+        `${process.env.REACT_APP_SERVER_URL}/api/auth-jwt/login`,
         {
           method: "POST",
           headers: {

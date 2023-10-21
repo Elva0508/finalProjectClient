@@ -72,7 +72,7 @@ export default function JobStatusTwo({
   const deletefav = async (user_id, id) => {
     try {
       const response = await axios.delete(
-        `${REACT_APP_SERVER_URL}/api/member-joblist/${id}`
+        `${process.env.REACT_APP_SERVER_URL}/api/member-joblist/${id}`
       );
     } catch (error) {
       console.error("Error:", error);

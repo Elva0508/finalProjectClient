@@ -31,7 +31,7 @@ export default function HomeProductCardHot() {
 
   useEffect(() => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/home/sales`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/home/sales`)
       .then((response) => {
         setProductData({ result: response.data.result }); // 將伺服器端的 result 放入物件中
       });

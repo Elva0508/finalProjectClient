@@ -20,7 +20,7 @@ export default function Purchast() {
 
   const getProduct = (id) => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/member-purchast/${id}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/member-purchast/${id}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);
@@ -39,7 +39,7 @@ export default function Purchast() {
     if (have === undefined) {
       try {
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/member-purchast/cart/${user_id}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/member-purchast/cart/${user_id}`,
           { id, type }
         );
       } catch (error) {
@@ -52,7 +52,7 @@ export default function Purchast() {
         console.log(newQuantity);
         console.log(id);
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/member-purchast/cartplus/${user_id}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/member-purchast/cartplus/${user_id}`,
           { id, newQuantity, type }
         );
       } catch (error) {
@@ -64,7 +64,9 @@ export default function Purchast() {
 
   const getWishlist = async (id) => {
     await axios
-      .get(`${REACT_APP_SERVER_URL}/api/member-purchast/wishlist/${id}`)
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/api/member-purchast/wishlist/${id}`
+      )
       .then((response) => {
         const data = response.data.result;
         console.log(data);
@@ -81,7 +83,7 @@ export default function Purchast() {
     if (have === undefined) {
       try {
         const response = await axios.put(
-          `${REACT_APP_SERVER_URL}/api/member-purchast/addwishlist/${user_id}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/member-purchast/addwishlist/${user_id}`,
           { id }
         );
       } catch (error) {
@@ -95,7 +97,7 @@ export default function Purchast() {
     console.log(id);
     try {
       const response = await axios.delete(
-        `${REACT_APP_SERVER_URL}/api/member-purchast/deletewishlist/${user_id}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/member-purchast/deletewishlist/${user_id}`,
         { data: { id } }
       );
     } catch (error) {
@@ -106,7 +108,7 @@ export default function Purchast() {
 
   const getCart = (id) => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/api/product/cart/cart/${id}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/product/cart/cart/${id}`)
       .then((response) => {
         const data = response.data.result;
         const newData = data.map((v) => {

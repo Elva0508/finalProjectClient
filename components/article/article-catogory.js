@@ -10,7 +10,7 @@ export default function ArticleCatogory() {
 
   const getArticleCatogory = async () => {
     await axios
-      .get(`${REACT_APP_SERVER_URL}/api/article-category`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/article-category`)
       .then((response) => {
         const data = response.data.result;
         // console.log(data);

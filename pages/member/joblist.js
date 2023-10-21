@@ -15,7 +15,7 @@ export default function Joblist() {
 
   const getJob = async (id) => {
     await axios
-      .get(`${REACT_APP_SERVER_URL}/api/member-joblist/${id}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/member-joblist/${id}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);
@@ -29,7 +29,7 @@ export default function Joblist() {
   const getCount = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/member-history/count/count`
+        `${process.env.REACT_APP_SERVER_URL}/api/member-history/count/count`
       );
       const data = response.data.result;
       console.log(data);

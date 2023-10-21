@@ -17,7 +17,7 @@ export default function Order() {
 
   const getOrder = async (userId) => {
     await axios
-      .get(`${REACT_APP_SERVER_URL}/api/member-order/${userId}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/member-order/${userId}`)
       .then((response) => {
         const data = response.data.result;
         console.log(data);

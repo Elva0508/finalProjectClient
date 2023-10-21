@@ -252,7 +252,7 @@ const ImageSwiper = ({ missionImages }) => {
 //         // setIsLoading(true);
 //         if (mission_id) {
 //             try {
-//                 const response = await axios.get(`${REACT_APP_SERVER_URL}/api/mission/mission-details/${mission_id}`);
+//                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/mission/mission-details/${mission_id}`);
 //                 const post_user_id = response.data.post_user_id;
 //                 console.log("post_user_id是" + post_user_id);
 //             } catch (error) {
@@ -272,7 +272,7 @@ const ImageSwiper = ({ missionImages }) => {
 
 //             try {
 //                 const response = await axios.post(
-//                     "${REACT_APP_SERVER_URL}/api/chatlist/creatchat",
+//                     "${process.env.REACT_APP_SERVER_URL}/api/chatlist/creatchat",
 //                     requestData
 //                 );
 
@@ -405,7 +405,7 @@ export default function MissionDetail() {
     // 接受 mission_id 作為參數
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/mission/mission-details/${mission_id}`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/mission-details/${mission_id}`
       );
       const data = response.data.data;
       console.log("data是" + data);
@@ -427,7 +427,7 @@ export default function MissionDetail() {
       // 使用useEffect發起第二個API請求，供ImageSwiper使用
       axios
         .get(
-          `${REACT_APP_SERVER_URL}/api/mission/mission-details-img/${mission_id}`
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/mission-details-img/${mission_id}`
         )
         .then((response) => {
           // 將第二個API的數據儲存到missionImages狀態中
@@ -440,7 +440,7 @@ export default function MissionDetail() {
       // 使用useEffect發起第三個API請求，供GOOGLE地圖使用
       axios
         .get(
-          `${REACT_APP_SERVER_URL}/api/mission/mission-details-map/${mission_id}`
+          `${process.env.REACT_APP_SERVER_URL}/api/mission/mission-details-map/${mission_id}`
         )
         .then((response) => {
           // 將第三個API的數據儲存到missionLocation狀態中
@@ -487,7 +487,7 @@ export default function MissionDetail() {
   const getIsFavoriteStatus = async (mission_id) => {
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/mission/fav/${mission_id}?userId=${userId}`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/fav/${mission_id}?userId=${userId}`
       );
 
       if (response.data.result.length > 0) {
@@ -524,7 +524,7 @@ export default function MissionDetail() {
   const addToFavorites = async (mission_id) => {
     try {
       const response = await axios.put(
-        `${REACT_APP_SERVER_URL}/api/mission/add-fav/${mission_id}?userId=${userId}`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/add-fav/${mission_id}?userId=${userId}`
       );
       setIsFavorite(true);
     } catch (error) {
@@ -535,7 +535,7 @@ export default function MissionDetail() {
   const removeFromFavorites = async (mission_id) => {
     try {
       const response = await axios.delete(
-        `${REACT_APP_SERVER_URL}/api/mission/delete-fav/${mission_id}?userId=${userId}`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/delete-fav/${mission_id}?userId=${userId}`
       );
       setIsFavorite(false);
     } catch (error) {
@@ -564,7 +564,7 @@ export default function MissionDetail() {
 
       try {
         const response = await axios.post(
-          `${REACT_APP_SERVER_URL}/api/chatlist/creatchat`,
+          `${process.env.REACT_APP_SERVER_URL}/api/chatlist/creatchat`,
           requestData
         );
 
@@ -618,7 +618,7 @@ export default function MissionDetail() {
 
       try {
         const response = await axios.post(
-          `${REACT_APP_SERVER_URL}/api/chatlist/creatchat`,
+          `${process.env.REACT_APP_SERVER_URL}/api/chatlist/creatchat`,
           requestData
         );
 
@@ -726,7 +726,7 @@ export default function MissionDetail() {
     try {
       // 發送消息到後端
       const response = await fetch(
-        `${REACT_APP_SERVER_URL}/api/chatroom/sendchat2`,
+        `${process.env.REACT_APP_SERVER_URL}/api/chatroom/sendchat2`,
         {
           method: "POST",
           headers: {
@@ -771,7 +771,7 @@ export default function MissionDetail() {
 
       // 發送 POST 請求將數據發送到後端 API
       const response = await axios.post(
-        `${REACT_APP_SERVER_URL}/api/mission/add-record?userId=${userId}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/add-record?userId=${userId}`,
         requestData
       );
       console.log("成功添加到應徵紀錄", response.data);
@@ -800,7 +800,7 @@ export default function MissionDetail() {
   const getPopularMissions = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/mission/popular`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/popular`
       );
       const data = response.data.result; //注意這裡是result
       console.log("data是" + data);
@@ -815,7 +815,7 @@ export default function MissionDetail() {
   const getRecordCount = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/mission/record-count/${mission_id}`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/record-count/${mission_id}`
       );
       const data = response.data.result[0]; //注意這裡是result 陣列裡只有一個物件 所以要記得補[0]
       console.log("Data received:", data);
@@ -829,7 +829,7 @@ export default function MissionDetail() {
   const getLoginUser = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/mission/login-user?userId=${userId}`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/login-user?userId=${userId}`
       );
       const data = response.data.result[0]; //注意這裡是result 陣列裡只有一個物件 所以要記得補[0]
       console.log("登入者資訊的data是:" + data);
@@ -843,7 +843,7 @@ export default function MissionDetail() {
   const getHelperInfo = async () => {
     try {
       const response = await axios.get(
-        `${REACT_APP_SERVER_URL}/api/mission/helper-info?userId=${userId}`
+        `${process.env.REACT_APP_SERVER_URL}/api/mission/helper-info?userId=${userId}`
       );
       const data = response.data.result[0]; //注意這裡是result 陣列裡只有一個物件 所以要記得補[0]
       console.log("小幫手履歷的data是:" + data);
